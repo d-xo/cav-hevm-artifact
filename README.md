@@ -1,4 +1,4 @@
-# Artifact Submission Template
+# CAV Artifact for `hevm`
 
 This is an artifact for the tool paper "hevm, a Fast Symbolic Execution Framework for EVM Bytecode"
 submitted to CAV2024 (submission number: 6413).
