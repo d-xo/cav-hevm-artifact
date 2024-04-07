@@ -21,3 +21,4 @@ COPY benchmark-results.csv /root/benchmark-results/results.csv
 WORKDIR /root/benchmarks
 ENTRYPOINT nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
 
+LABEL org.opencontainers.image.source="https://github.com/d-xo/cav-hevm-artifact"
