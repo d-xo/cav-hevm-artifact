@@ -4,6 +4,9 @@ on:
     branches:
       - main
 
+permissions:
+  packages: write
+
 jobs:
   docker_publish:
     runs-on: "ubuntu-20.04"
