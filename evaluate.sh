@@ -5,7 +5,7 @@
 ############################################################
 #
 
-tools="--tools=\"hevm-bitwuzla,halmos,kontrol\""
+tools=(--tools=\"hevm-bitwuzla,halmos,kontrol\")
 #
 memoutmb="16000"
 Help()
@@ -26,28 +26,46 @@ Help()
    echo ""
 }
 
-
+Graphs () {
+    echo "Generating graphs"
+    todo="./gen_graphs.py --verbose --pretty"
+    echo "Running: $todo"
+    # $todo
+    echo "DONE generating graphs"
+    echo "You can now view all eps/png graphs in folder graphs/"
+}
 
 Full () {
     echo "Full tests, needs 24h"
     echo "You need $memoutmb of free memory for this to run."
-    todo="./bench.py -t 1000 $tools -m $memoutmb"
-    echo "Running: $todo"
+    todo=(./bench.py --verbose -t 1000 "${tools[@]}" -m "$memoutmb")
+    echo "Running: ${todo[@]}"
+    # ${todo[@]}
+    echo "DONE with Full tests!"
+    Graphs
 }
 
 Brief () {
-    echo "Full tests, needs 1h"
+    echo "Brief tests, needs 1h"
     echo "You need $memoutmb MB of free memory for this to run."
-    todo="./bench.py -t 40 $tools -m $memoutmb"
-    echo "Running: $todo"
+    todo=(./bench.py --verbose -t 40 "${tools[@]}" -m "$memoutmb")
+    echo "Running: ${todo[@]}"
+    # ${todo[@]}
+    echo "DONE with Brief tests!"
+    Graphs
 }
 
 Smoketest () {
-    echo "Smoke testing."
+    echo "Smoke testing. Needs only time for full build and then quick run"
     echo "You need $memoutmb MB of free memory for this to run."
-    todo="./bench.py --timeout 4 --test=whatever $tools -m $memoutmb"
-    echo "Running: $todo"
+    # sleep 5
+    todo=(./bench.py --verbose "${tools[@]}" -m "$memoutmb" --tests \"storage-unsafe.sol:C:proveMappingAccess\" )
+    echo "Running: ${todo[@]}"
+    # ${todo[@]}
+    echo "DONE with smoke test!"
+    Graphs
 }
+
 
 # Get the options
 while getopts ":hfbs-:m:" option; do
