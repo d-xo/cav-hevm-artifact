@@ -48,7 +48,7 @@ Full () {
 Brief () {
     echo "Brief tests, needs 1h on an 8 core machine"
     echo "You need $memoutmb MB of free memory for this to run."
-    todo=(./bench.py --verbose -t 100 "${tools[@]}" -m "$memoutmb")
+    todo=(./bench.py --verbose -t 100 --brief "${tools[@]}" -m "$memoutmb")
     echo "Running: ${todo[@]}"
     ${todo[@]}
     echo "DONE with Brief tests!"

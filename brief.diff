@@ -1,5 +1,5 @@
 diff --git a/bench.py b/bench.py
-index f9bb3ca..d0805c3 100755
+index f9bb3ca..38459ab 100755
 --- a/bench.py
 +++ b/bench.py
 @@ -198,6 +198,40 @@ def gather_cases() -> list[Case]:
@@ -35,7 +35,7 @@ index f9bb3ca..d0805c3 100755
 +                    casename = f"{fname}:{c}:{f_and_s[0]}"
 +                    if opts.verbose:
 +                        print("Matching test pattern against: ", casename)
-+                    if random.randrange(1, 24) == 7:
++                    if random.randrange(1, 10) == 7:
 +                        cases.append(Case(c, json_path, sol_file, ds_test,
 +                                          f_and_s[0], f_and_s[1]))
 +    return cases
@@ -53,7 +53,7 @@ index f9bb3ca..d0805c3 100755
      parser.add_option("--tests", dest="testpattern", type=str, default=".*",
                        help="Test pattern regexp in the format 'fname:contract:function'. Default: %default")
  
-@@ -459,7 +496,10 @@ def main() -> None:
+@@ -459,13 +496,19 @@ def main() -> None:
          print("ERROR: You selected no tools to run. Exiting.")
          exit(-1)
  
@@ -65,3 +65,13 @@ index f9bb3ca..d0805c3 100755
      print(f"running {len(cases)} cases")
      cases.sort(key=lambda contr: contr.get_name())
      if len(cases) == 0:
+         print(f"No cases gathered with test pattern '{opts.testpattern}'. Exiting.")
+         exit(0)
+-    print(f"Cases gathered given test pattern '{opts.testpattern}':")
++    if opts.brief:
++        print(f"Cases gathered given --brief option :")
++    else:
++        print(f"Cases gathered given test pattern '{opts.testpattern}':")
+     for c in cases:
+         print("-> %s" % c)
+     random.shuffle(cases)
