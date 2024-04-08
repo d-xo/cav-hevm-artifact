@@ -48,7 +48,7 @@ Full () {
 Brief () {
     echo "Brief tests, needs 1h on an 8 core machine"
     echo "You need $memoutmb MB of free memory for this to run."
-    todo=(./bench.py --verbose -t 100 --brief "${tools[@]}" -m "$memoutmb")
+    todo=(./bench.py --verbose -t 100 "${tools[@]}" -m "$memoutmb" --brief)
     echo "Running: ${todo[@]}"
     ${todo[@]}
     echo "DONE with Brief tests!"
@@ -59,7 +59,7 @@ Smoketest () {
     echo "Smoke testing. Needs only time for full build and then quick run"
     echo "You need $memoutmb MB of free memory for this to run."
     # sleep 5
-    todo=(./bench.py --verbose "${tools[@]}" -m "$memoutmb" --tests \"storage-unsafe.sol:C:proveMappingAccess\" )
+    todo=(./bench.py --verbose -t 100 "${tools[@]}" -m "$memoutmb" --tests \"storage-unsafe.sol:C:proveMappingAccess\" )
     echo "Running: ${todo[@]}"
     ${todo[@]}
     echo "DONE with smoke test!"
