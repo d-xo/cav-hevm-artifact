@@ -8,7 +8,7 @@ RUN nix-shell -p cachix --command "cachix use k-framework"
 WORKDIR /root
 RUN git clone https://github.com/eth-sc-comp/benchmarks.git
 WORKDIR /root/benchmarks
-RUN git reset --hard d85d25de5b643c5a038831a15b3a4fa6377b035a
+RUN git reset --hard e24a7182b317ea122dd75fcd91308a3dc3140596
 
 # install benchmark deps
 RUN nix develop

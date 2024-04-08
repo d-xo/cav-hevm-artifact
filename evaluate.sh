@@ -33,6 +33,8 @@ Graphs () {
     $todo
     echo "DONE generating graphs"
     echo "You can now view all graphs in folder graphs/"
+    echo "\n------\n"
+    echo "All experiments were successful."
 }
 
 Full () {
