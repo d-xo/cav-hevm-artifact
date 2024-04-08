@@ -13,8 +13,7 @@ core CPU with boost frequency up to 4.9GHz (AMD 5950X) and 128GB RAM. A full eva
 
 The evaluation script provided as part of this artifact provides a `--brief` option that runs a
 randomly selected subset of experiments. This subset was fully evaluated in ~1hr on a modern laptop
-(AMD Ryzen 7 7840U / 64GB RAM) with the docker container being restricted to 4 cores and 16GB RAM
-only.
+(AMD Ryzen 7 7840U / 64GB RAM) with the docker container being restricted to 4 cores and 16GB RAM.
 
 Full instructions for executing the evaluation script are provided in the "Getting Started" section.
 
@@ -113,6 +112,8 @@ This artifact is made available under GPLv3. `hevm` is made available under AGPL
 - the ds-test format introduced by `hevm` is very popular, and in wide use across the ecosystem.
     Most Solidity developers are familiar with it, and can very easily modify their existing fuzz
     tests to use symbolic execution.
+- `hevm` is compatible with [foundry](https://github.com/foundry-rs/foundry) projects (a very
+    popular project management framework for solidity).
 - user facing documentation is published online at [hevm.dev](https://hevm.dev/).
 
 **use outside of the artifact**
@@ -120,4 +121,4 @@ This artifact is made available under GPLv3. `hevm` is made available under AGPL
 - `hevm` has a set of highly reproducible build scripts (based on nix). These allow the project to
     be built on any linux or macos system.
 - static binaries for linux and macos are made available for every release
-- `hevm` is available via nixpkgs
+- `hevm` is available via [nixpkgs](https://github.com/NixOS/nixpkgs).
