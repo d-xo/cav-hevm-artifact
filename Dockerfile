@@ -7,7 +7,6 @@ WORKDIR /root/benchmarks
 RUN git reset --hard 06e8a2915e6c1a044bfd7b851d7d9701ec6ab531
 RUN nix-shell -p cachix --command "cachix use k-framework"
 RUN nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
-COPY evaluate.sh /root/benchmarks/evaluate.sh
 
 # clone hevm source
 WORKDIR /root
@@ -17,6 +16,12 @@ RUN git clone https://github.com/ethereum/hevm.git
 RUN mkdir -p /root/benchmark-results/
 COPY benchmark-results.json /root/benchmark-results/results.json
 COPY benchmark-results.csv /root/benchmark-results/results.csv
+
+# fix up for evaluation
+COPY evaluate.sh /root/benchmarks/evaluate.sh
+COPY brief.diff /root/benchmarks/brief.diff
+WORKDIR /root/benchmarks
+RUN patch -p1 < brief.diff
 
 # enter the benchmarks repo and it's nix shell by default
 WORKDIR /root/benchmarks

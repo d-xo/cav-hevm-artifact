@@ -1,0 +1,67 @@
+diff --git a/bench.py b/bench.py
+index f9bb3ca..d0805c3 100755
+--- a/bench.py
++++ b/bench.py
+@@ -198,6 +198,40 @@ def gather_cases() -> list[Case]:
+     return cases
+ 
+ 
++def gather_random_cases() -> list[Case]:
++    build_forge()
++    build_kontrol()
++    # build a dictionary where the key is a directory in the foundry build
++    # output, and the value is a list of contract names defined within
++    output_jsons = {
++        str(f): [j.stem for j in f.glob("*.json")]
++        for f in Path("./out").iterdir()
++        if f.is_dir() and f.name != "kompiled"
++    }
++
++    # replace the path to the output json with the path to the original solidity file
++    cases: list[Case] = []
++    for out_dir, contracts in output_jsons.items():
++        for c in contracts:
++            json_path = f"{out_dir}/{c}.json"
++            if json_path.startswith("out/build-info"):
++                continue
++            with open(json_path) as oj:
++                js = json.load(oj)
++                sol_file: str = js["ast"]["absolutePath"]
++                if sol_file.startswith("src/common/") or sol_file.startswith("lib/"):
++                    continue
++                ds_test = determine_dstest(sol_file)
++                for f_and_s in get_relevant_funcs(js):
++                    fname = os.path.basename(sol_file)
++                    casename = f"{fname}:{c}:{f_and_s[0]}"
++                    if opts.verbose:
++                        print("Matching test pattern against: ", casename)
++                    if random.randrange(1, 24) == 7:
++                        cases.append(Case(c, json_path, sol_file, ds_test,
++                                          f_and_s[0], f_and_s[1]))
++    return cases
++
+ # Generates a unique temporary file. Can be run multi-threaded
+ def unique_file(fname_begin, fname_end=".out"):
+         counter = 1
+@@ -395,6 +429,9 @@ def set_up_parser() -> optparse.OptionParser:
+     parser.add_option("-s", dest="seed", type=int, default=1,
+                       help="Seed for random numbers. Default: %default")
+ 
++    parser.add_option("--brief", dest="brief", default=False,
++                      action="store_true", help="Run only randomly picked 20")
++
+     parser.add_option("--tests", dest="testpattern", type=str, default=".*",
+                       help="Test pattern regexp in the format 'fname:contract:function'. Default: %default")
+ 
+@@ -459,7 +496,10 @@ def main() -> None:
+         print("ERROR: You selected no tools to run. Exiting.")
+         exit(-1)
+ 
+-    cases = gather_cases()
++    if opts.brief:
++        cases = gather_random_cases()
++    else:
++        cases = gather_cases()
+     print(f"running {len(cases)} cases")
+     cases.sort(key=lambda contr: contr.get_name())
+     if len(cases) == 0:

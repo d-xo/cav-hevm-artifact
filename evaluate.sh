@@ -36,9 +36,9 @@ Graphs () {
 }
 
 Full () {
-    echo "Full tests, needs 24h"
+    echo "Full tests, needs 24h on a 16 core machine"
     echo "You need $memoutmb of free memory for this to run."
-    todo=(./bench.py --verbose -t 1000 "${tools[@]}" -m "$memoutmb")
+    todo=(./bench.py --verbose -t 300 "${tools[@]}" -m "$memoutmb")
     echo "Running: ${todo[@]}"
     ${todo[@]}
     echo "DONE with Full tests!"
@@ -46,9 +46,9 @@ Full () {
 }
 
 Brief () {
-    echo "Brief tests, needs 1h"
+    echo "Brief tests, needs 1h on an 8 core machine"
     echo "You need $memoutmb MB of free memory for this to run."
-    todo=(./bench.py --verbose -t 40 "${tools[@]}" -m "$memoutmb")
+    todo=(./bench.py --verbose -t 100 "${tools[@]}" -m "$memoutmb")
     echo "Running: ${todo[@]}"
     ${todo[@]}
     echo "DONE with Brief tests!"
