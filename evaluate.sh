@@ -30,9 +30,9 @@ Graphs () {
     echo "Generating graphs"
     todo="./gen_graphs.py --verbose --pretty"
     echo "Running: $todo"
-    # $todo
+    $todo
     echo "DONE generating graphs"
-    echo "You can now view all eps/png graphs in folder graphs/"
+    echo "You can now view all graphs in folder graphs/"
 }
 
 Full () {
@@ -40,7 +40,7 @@ Full () {
     echo "You need $memoutmb of free memory for this to run."
     todo=(./bench.py --verbose -t 1000 "${tools[@]}" -m "$memoutmb")
     echo "Running: ${todo[@]}"
-    # ${todo[@]}
+    ${todo[@]}
     echo "DONE with Full tests!"
     Graphs
 }
@@ -50,7 +50,7 @@ Brief () {
     echo "You need $memoutmb MB of free memory for this to run."
     todo=(./bench.py --verbose -t 40 "${tools[@]}" -m "$memoutmb")
     echo "Running: ${todo[@]}"
-    # ${todo[@]}
+    ${todo[@]}
     echo "DONE with Brief tests!"
     Graphs
 }
@@ -61,7 +61,7 @@ Smoketest () {
     # sleep 5
     todo=(./bench.py --verbose "${tools[@]}" -m "$memoutmb" --tests \"storage-unsafe.sol:C:proveMappingAccess\" )
     echo "Running: ${todo[@]}"
-    # ${todo[@]}
+    ${todo[@]}
     echo "DONE with smoke test!"
     Graphs
 }
