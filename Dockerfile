@@ -20,7 +20,6 @@ COPY benchmark-results.csv /root/benchmark-results/results.csv
 # fix up for evaluation
 COPY evaluate.sh /root/benchmarks/evaluate.sh
 COPY brief.diff /root/benchmarks/brief.diff
-WORKDIR /root/benchmarks
 
 # enter the benchmarks repo and it's nix shell by default
 WORKDIR /root/benchmarks
