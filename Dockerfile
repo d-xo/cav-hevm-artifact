@@ -17,6 +17,10 @@ RUN mkdir -p /root/benchmark-results/
 COPY benchmark-results.json /root/benchmark-results/results.json
 COPY benchmark-results.csv /root/benchmark-results/results.csv
 
+# fix up for evaluation
+COPY evaluate.sh /root/benchmarks/evaluate.sh
+COPY brief.diff /root/benchmarks/brief.diff
+
 # enter the benchmarks repo and it's nix shell by default
 WORKDIR /root/benchmarks
 ENTRYPOINT nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
