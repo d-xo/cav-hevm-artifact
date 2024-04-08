@@ -3,6 +3,10 @@
 ############################################################
 # Help                                                     #
 ############################################################
+#
+
+tools="--tools=\"hevm-bitwuzla,halmos,kontrol\""
+#
 Help()
 {
    # Display Help
@@ -17,22 +21,22 @@ Help()
 
 Full () {
     echo "Full tests, needs 24h"
-    echo "You need 16GB of memory for this to run."
-    todo="./bench.py --timeout 1000"
+    echo "You need 16GB of free memory for this to run."
+    todo="./bench.py --timeout 1000 $tools"
     echo "Running: $todo"
 }
 
 Brief () {
     echo "Full tests, needs 1h"
-    echo "You need 16GB of memory for this to run."
-    todo="./bench.py --timeout 40"
+    echo "You need 16GB of free memory for this to run."
+    todo="./bench.py --timeout 40 $tools"
     echo "Running: $todo"
 }
 
 Smoketest () {
     echo "Smoke testing."
-    echo "You need 16GB of memory for this to run."
-    todo="./bench.py --timeout 4 --test=whatever"
+    echo "You need 16GB of free memory for this to run."
+    todo="./bench.py --timeout 4 --test=whatever $tools"
     echo "Running: $todo"
 }
 

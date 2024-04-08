@@ -18,6 +18,7 @@ COPY benchmark-results.json /root/benchmark-results/results.json
 COPY benchmark-results.csv /root/benchmark-results/results.csv
 
 # enter the benchmarks repo and it's nix shell by default
+COPY evaluate.sh /root/benchmark-results/evaluate.sh
 WORKDIR /root/benchmarks
 ENTRYPOINT nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
 
