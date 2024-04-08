@@ -37,18 +37,18 @@ Smoketest () {
 }
 
 # Get the options
-while getopts ":h-:" option; do
+while getopts ":hfbs-:" option; do
    case $option in
-      h|help) # display Help
+      h) # display Help
          Help
          exit;;
-      f|full)
+      f)
          Full
          exit;;
-      b|brief)
+      b)
          Brief
          exit;;
-      s|smoke-test)
+      s)
          Smoketest
          exit;;
       -)
