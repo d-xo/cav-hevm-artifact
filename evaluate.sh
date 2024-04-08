@@ -12,10 +12,10 @@ Help()
    # Display Help
    echo "Add description of the script functions here."
    echo
-   echo "Syntax: evaluate --smoke-test/--brief/--full"
-   echo "Check for sanity: ./evaluate.sh --smoke-test"
-   echo "Check briefly: ./evaulate.sh --brief"
-   echo "Full run: ./evaluate --full"
+   echo "./evaluate.sh [--smoke-test][--brief][--full]"
+   echo "--smoke-test  Check if installation is correct"
+   echo "--brief       Check results by running for ~1h"
+   echo "--full        Full run, takes ~24h"
    echo ""
 }
 

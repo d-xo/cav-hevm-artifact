@@ -7,6 +7,7 @@ WORKDIR /root/benchmarks
 RUN git reset --hard 06e8a2915e6c1a044bfd7b851d7d9701ec6ab531
 RUN nix-shell -p cachix --command "cachix use k-framework"
 RUN nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
+COPY evaluate.sh /root/benchmarks/evaluate.sh
 
 # clone hevm source
 WORKDIR /root
@@ -18,7 +19,6 @@ COPY benchmark-results.json /root/benchmark-results/results.json
 COPY benchmark-results.csv /root/benchmark-results/results.csv
 
 # enter the benchmarks repo and it's nix shell by default
-COPY evaluate.sh /root/benchmark-results/evaluate.sh
 WORKDIR /root/benchmarks
 ENTRYPOINT nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
 
