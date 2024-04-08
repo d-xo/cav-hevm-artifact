@@ -5,7 +5,7 @@
 ############################################################
 #
 
-tools=(--tools=\"hevm-bitwuzla,halmos,kontrol\")
+tools=(--tools=\"hevm-z3,halmos,kontrol\")
 #
 memoutmb="16000"
 Help()
