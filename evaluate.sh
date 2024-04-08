@@ -5,7 +5,7 @@
 ############################################################
 #
 
-tools=(--tools=\"hevm-z3,halmos,kontrol\")
+tools=(--tools=hevm-z3,hevm-bitwuzla,halmos,kontrol)
 #
 memoutmb="16000"
 Help()
@@ -59,7 +59,7 @@ Smoketest () {
     echo "Smoke testing. Needs only time for full build and then quick run"
     echo "You need $memoutmb MB of free memory for this to run."
     # sleep 5
-    todo=(./bench.py --verbose -t 100 "${tools[@]}" -m "$memoutmb" --tests \"storage-unsafe.sol:C:proveMappingAccess\" )
+    todo=(./bench.py --verbose -t 10 "${tools[@]}" -m "$memoutmb" --tests assert-true.sol:AssertTrue:prove_assert_true)
     echo "Running: ${todo[@]}"
     ${todo[@]}
     echo "DONE with smoke test!"

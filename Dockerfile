@@ -1,12 +1,18 @@
 FROM ghcr.io/nixos/nix
 
-# clone benchmarks and prepare nix shell
+# prepare nix
+RUN echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+RUN nix-shell -p cachix --command "cachix use k-framework"
+
+# clone benchmarks
 WORKDIR /root
 RUN git clone https://github.com/eth-sc-comp/benchmarks.git
 WORKDIR /root/benchmarks
-RUN git reset --hard 06e8a2915e6c1a044bfd7b851d7d9701ec6ab531
-RUN nix-shell -p cachix --command "cachix use k-framework"
-RUN nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
+RUN git reset --hard 723e785dbabc9d54e244429ede9b20bc6914aad5
+
+# install benchmark deps
+RUN nix develop
+RUN nix-env --install patch
 
 # clone hevm source
 WORKDIR /root
@@ -17,12 +23,16 @@ RUN mkdir -p /root/benchmark-results/
 COPY benchmark-results.json /root/benchmark-results/results.json
 COPY benchmark-results.csv /root/benchmark-results/results.csv
 
-# fix up for evaluation
+# prepare evaluation script
+WORKDIR /root/benchmarks
 COPY evaluate.sh /root/benchmarks/evaluate.sh
 COPY brief.diff /root/benchmarks/brief.diff
+RUN patch -p1 < brief.diff
+RUN git config user.name 'docker'
+RUN git config user.email '<>'
+RUN git commit -am "add eval.sh"
+RUN nix develop
 
 # enter the benchmarks repo and it's nix shell by default
 WORKDIR /root/benchmarks
-ENTRYPOINT nix --extra-experimental-features nix-command --extra-experimental-features flakes develop
-
-LABEL org.opencontainers.image.source="https://github.com/d-xo/cav-hevm-artifact"
+ENTRYPOINT nix develop

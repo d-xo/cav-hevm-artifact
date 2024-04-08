@@ -18,7 +18,6 @@ only.
 
 Full instructions for executing the evaluation script are provided in the "Getting Started" section.
 
-
 ## Structure and Content
 
 - `/root/benchmarks`: source code and execution scripts for the benchmarks presented in the paper
@@ -36,7 +35,8 @@ docker load < hevm-cav-image.tar
 Upon loading the image, you can run the container with:
 
 ```bash
-docker run -v `pwd`/output:/root/benchmarks/output --rm -it hevm-cav
+mkdir -p graphs
+docker run -v `pwd`/graphs:/root/benchmarks/graphs --rm -it hevm-cav
 ```
 
 The command above starts the docker container and places you in a bash environment, where you can inspect the source code or run the experiments. `-v` option will mount `output` folder in your current directory to the corresponding folder within the container where the evaluation results will be stored. This will allow you to view the generated output even after the container has stopped running. `--rm` is an optional flag that creates a disposable container that will be deleted upon exit.
@@ -88,7 +88,7 @@ the evaluation script.
 
 **source code**
 
-- Source code for `hevm` is availalbe in the artifact at `/root/hevm`. TODO: which parts are most relevent?
+- Source code for `hevm` is availalbe in the artifact at `/root/hevm`.
 
 
 ## Reusable badge
@@ -99,7 +99,7 @@ This artifact is made available under GPLv3. `hevm` is made available under AGPL
 
 **dependencies**
 
-- `hevm` is written in haskell, we use a modern version of ghc ().
+- `hevm` is written in haskell, we use a modern version of ghc (9.4.6).
 - Expected versions of all haskell libraries can be found in the artifact at `/root/hevm/hevm.cabal`
 - We depend on a few c libraries: [libff](https://github.com/scipr-lab/libff),
     [libsecp256k1](https://github.com/bitcoin-core/secp256k1), and [GMP](https://gmplib.org/). The
@@ -108,9 +108,9 @@ This artifact is made available under GPLv3. `hevm` is made available under AGPL
 
 **use beyond the paper**
 
-- `hevm` is an open source tool with comprehensive and reusable build scripts
-- static binaries are published for linux and macos for every release
-- the project can be easily installed via nix
+- `hevm` is an open source tool with comprehensive and reusable build scripts.
+- static binaries are published for linux and macos for every release.
+- the project can be easily installed via nix.
 - user facing documentation is published online at [hevm.dev](https://hevm.dev/).
 
 **use outside of the artifact**
